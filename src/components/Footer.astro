@@ -1,7 +1,5 @@
 ---
-import { execSync } from 'child_process';
 const today = new Date();
-const commit = execSync('git log -1 --pretty=format:"%s (%h)"', { encoding: 'utf-8' }).trim();
 ---
 
 <footer class="text-center py-8 px-4 text-base-300 dark:text-base-700 bg-linear-to-b from-base-50 dark:from-base-950 select-none print:hidden" id="footer">

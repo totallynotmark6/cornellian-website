@@ -4,7 +4,7 @@ FROM oven/bun:1 AS builder
 WORKDIR /app
 
 # Copy package files
-COPY package.json bun.lockb ./
+COPY package.json bun.lock ./
 
 # Install dependencies
 RUN bun install --frozen-lockfile
@@ -16,16 +16,14 @@ COPY . .
 RUN bun run build
 
 # Stage 2: Serve the site
-FROM nginx:alpine AS runner
+FROM caddy:2-alpine AS runner
 
 # Copy the built assets from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /srv
 
-# Copy a custom nginx config if needed (optional, using default for now)
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80
+# Expose ports 80 and 443
 EXPOSE 80
+EXPOSE 443
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Caddy will use the Caddyfile mounted via docker-compose
+CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]

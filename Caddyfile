@@ -7,6 +7,12 @@ thecornellian.org {
     file_server
     encode gzip
 
+    # Explicitly set MIME type for WebP images
+    @webp {
+        path *.webp
+    }
+    header @webp Content-Type image/webp
+
     # tls /keys/fullchain.pem /keys/private.pem
 
     # force binding on all IPv4 interfaces inside Docker

@@ -10,7 +10,7 @@ import { remarkImageCaptions } from './remark-image-captions.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'http://itsactuallyluna9.asuscomm.com:4321',
+    site: 'https://thecornellian.org',
     markdown: {
         shikiConfig: {
             themes: {

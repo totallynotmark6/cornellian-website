@@ -2,19 +2,13 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import { Image } from 'astro:assets';
-import niko from '../images/ads/niko.png';
-import knowNot from '../images/ads/know-not.png';
-import hotSquirrels from '../images/ads/hot-squirrels.png';
-import pumpkin from '../images/ads/pumpkin.png';
-import lightingDesign from '../images/ads/lighting_design_1.png';
 
 const allAds = [
-    { src: niko, link: '', label: 'Niko' },
-    { src: knowNot, link: 'https://www.cornellcollege.edu/ingenuity/index.shtml', label: 'Know Not' },
-    { src: hotSquirrels, link: '', label: 'Hot Squirrels' },
-    { src: pumpkin, link: '', label: 'Pumpkin' },
-    { src: lightingDesign, link: 'https://selfservice.cornellcollege.edu/PowerCampusSelfService/Search/Section/Share?&keywords=Lighting%20Design&session=BLOCK8&department=THE', label: 'Lighting Design' },
+    { src: '/ads/niko.png', link: '', label: 'Niko' },
+    { src: '/ads/know-not.png', link: 'https://www.cornellcollege.edu/ingenuity/index.shtml', label: 'Know Not' },
+    { src: '/ads/hot-squirrels.png', link: '', label: 'Hot Squirrels' },
+    { src: '/ads/pumpkin.png', link: '', label: 'Pumpkin' },
+    { src: '/ads/lighting_design_1.png', link: 'https://selfservice.cornellcollege.edu/PowerCampusSelfService/Search/Section/Share?&keywords=Lighting%20Design&session=BLOCK8&department=THE', label: 'Lighting Design' },
 ];
 ---
 
@@ -41,7 +35,7 @@ const allAds = [
 							<div class="mx-auto w-full font-mono text-white not-prose">
 								<div class="mx-auto relative border-2 border-gray-500 border-ridge bg-black">
 									<a href={ad.link} class="block w-full h-full">
-										<Image src={ad.src} alt={ad.label} class="w-full h-full" />
+										<img src={ad.src} alt={ad.label} width="728" height="90" class="w-full h-full" />
 									</a>
 									<div class="absolute right-0 bottom-0 border-t border-l border-purple-200 p-1 text-sm backdrop-blur-3xl backdrop-grayscale-100">
 										<span class="text-purple-200">ad</span>
