@@ -4,7 +4,7 @@ import fs from "fs";
 const INPUT = process.argv[2];
 
 if (!INPUT) {
-  console.error("Usage: node unwrap.js <file>");
+  console.error("Usage: npm run unwrap <file>");
   process.exit(1);
 }
 

@@ -1,19 +1,19 @@
 # Stage 1: Build the site
-FROM oven/bun:1 AS builder
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
 # Copy package files
-COPY package.json bun.lock ./
+COPY package.json package-lock.json ./
 
 # Install dependencies
-RUN bun install --frozen-lockfile
+RUN npm ci
 
 # Copy source code
 COPY . .
 
 # Build the project
-RUN bun run build
+RUN npm run build
 
 # Stage 2: Serve the site
 FROM caddy:2-alpine AS runner

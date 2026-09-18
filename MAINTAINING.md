@@ -49,7 +49,7 @@ If you want to edit this in the browser, you can! See [2b. Setting up Codespaces
 | Program | What it is | Where to get it |
 |---|---|---|
 | **VS Code** | The text editor you will use for everything | code.visualstudio.com |
-| **Bun** | The tool that runs the site's helper programs | bun.sh (follow the install instructions for your computer) |
+| **Node.js** | The JavaScript runtime | nodejs.org (follow the install instructions for your computer) |
 | **Git** | The program that talks to GitHub | Comes with GitHub Desktop (easiest) or with Xcode command line tools on Mac; on Windows install "Git for Windows" |
 
 Also have a **GitHub account** and ask for access to the repository: `totallynotmark6/cornellian-website`. (Note: we might want to move this?)
@@ -62,15 +62,15 @@ git clone git@github.com:totallynotmark6/cornellian-website.git
 cd cornellian-website
 
 # Download the site's helper tools (creates a node_modules folder)
-bun install
+npm install
 ```
 
-`bun install` only needs to be run once, and again whenever you pull changes from someone else (see section 8) (or when you add packages *but*-).
+`npm install` only needs to be run once, and again whenever you pull changes from someone else (see section 8) (or when you add packages *but*-).
 
-**Start the local preview:**
+### 2 — Start the local preview:
 
 ```sh
-bun run dev
+npm run dev
 ```
 
 Open <http://localhost:4321> in your browser. That's the website, running on *your* computer, and it updates live as you type. You can leave this running all day.
@@ -98,7 +98,7 @@ This is the most common task, so read this section first.
 ### Step 1 — Create the file (the easy way)
 
 ```sh
-bun scripts/make-article.ts
+npm run make-article
 ```
 
 Answer the three questions it asks:
@@ -202,7 +202,7 @@ That's 90% of what you'll ever need. Links work like `[like this](https://exampl
 - **Writing in Google Docs?** Use *File → Download →* the Markdown option, then save it as your article file. **You must add images by hand** — Google Docs pastes its own squashed copies of images into the download, which look bad. Keep the original photos and drop them in with the syntax above.
 - **Pasting text from Word or a PDF** that has random line breaks and words chopped with dashes (`Novemb-\ner`)? Save the text to a file and run:
   ```sh
-  bun scripts/unwrap.ts draft.txt > draft-clean.txt
+  npm run unwrap draft.txt > draft-clean.txt
   ```
   It joins the chopped words, removes the extra line breaks, and leaves proper paragraphs in `draft-clean.txt`. Paste that in.
 - **Need something fancy?** The site also supports MDX (Markdown plus a little extra). It's not needed for most articles; if you're using it either you want to be *really* fancy or you geuinely need the power.
@@ -224,7 +224,7 @@ Copy an existing article from this year, rename the file (lowercase-dashes), edi
 Comics live in their own little section with previous/next buttons and an archive page.
 
 ```sh
-bun scripts/make-comic.ts
+npm run make-comic
 ```
 
 This creates `src/content/comics/my-comic-name.md`:
@@ -324,7 +324,7 @@ Before you start working, get the latest changes from everyone else:
 
 ```sh
 git pull
-bun install   # only if the pull mentioned new packages
+npm install   # only if the pull mentioned new packages
 ```
 
 ### 8.2 — Commit your work
@@ -368,7 +368,7 @@ Manual server instructions (only if the script is a no-go) are in `DEPLOY.md`.
 ### 8.5 — Before you deploy: the two checks
 
 ```sh
-bun run build
+npm run build
 ```
 
 This type-checks and builds the site exactly like the server does. If it fails, **do not deploy** — fix the error it describes (section 9 will help) and run it again until it passes.
@@ -404,17 +404,17 @@ When you save an article/comic with a broken info box, the preview page shows a 
 - The file was never actually saved into the folder (drag-and-drop in VS Code is silent — check the file explorer).
 - The file name has spaces or special characters and the path didn't match them exactly. Rename the image to `lowercase-dashes.png` and use that.
 
-### `bun: command not found`
+### `node: command not found`
 
-Bun isn't installed, or the terminal doesn't know about it yet. Install it (bun.sh) and **restart the terminal** (close it fully and open a new one).
+Node.js isn't installed, or the terminal doesn't know about it yet. Install it (nodejs.org) and **restart the terminal** (close it fully and open a new one).
 
 ### Port 4321 is already in use
 
-Another copy of the preview server is already running - probably yours, from earlier. Just use that one, or kill it and start fresh: `Ctrl+C` in the terminal where `bun run dev` is running, then run it again.
+Another copy of the preview server is already running - probably yours, from earlier. Just use that one, or kill it and start fresh: `Ctrl+C` in the terminal where `npm run dev` is running, then run it again.
 
 ### The deploy failed
 
-Read the output. The most common failure is the build step (step 1 of the script), which is just `bun run build` in a box - run it locally to see the same error without the server in the way.
+Read the output. The most common failure is the build step (step 1 of the script), which is just `npm run build` in a box - run it locally to see the same error without the server in the way.
 
 ### The live site still shows the old version after deploying
 
@@ -449,14 +449,14 @@ Read the output. The most common failure is the build step (step 1 of the script
 
 | Command | What it does |
 |---|---|
-| `bun install` | Downloads the site's helper tools. Run once after cloning, and after pulling changes. |
-| `bun run dev` | Starts the local preview at <http://localhost:4321> with live reload. |
-| `bun run build` | Checks everything and builds the site, exactly like the server does. Run before deploying. |
-| `bun run preview` | Shows the *built* site locally (useful for a final look after `bun run build`). |
-| `bun scripts/make-article.ts` | Interactive: creates a new article file with the info box filled in. |
-| `bun scripts/make-comic.ts` | Interactive: creates a new comic file. |
-| `bun scripts/unwrap.ts draft.txt > clean.txt` | Cleans up text copied from Word/PDF (fixes line breaks and hyphenated words). |
-| `bun scripts/chs-print.ts` | **advanced.** Exports every article as a print-styled PDF into an `article-pdfs/` folder. Requires the preview server to be running, and a web-browser engine that the script downloads on first use (it's currently installed as an indirect dependency — if it's ever missing, run `bun add puppeteer`). This is mainly meant so that the Historical Society doesn't have to print all of the articles by their own hand. |
+| `npm install` | Downloads the site's helper tools. Run once after cloning, and after pulling changes. |
+| `npm run dev` | Starts the local preview at <http://localhost:4321> with live reload. |
+| `npm run build` | Checks everything and builds the site, exactly like the server does. Run before deploying. |
+| `npm run preview` | Shows the *built* site locally (useful for a final look after `npm run build`). |
+| `npm run make-article` | Interactive: creates a new article file with the info box filled in. |
+| `npm run make-comic` | Interactive: creates a new comic file. |
+| `npm run unwrap draft.txt > clean.txt` | Cleans up text copied from Word/PDF (fixes line breaks and hyphenated words). |
+| `npm run chs-print` | **advanced.** Exports every article as a print-styled PDF into an `article-pdfs/` folder. Requires the preview server to be running, and a web-browser engine that the script downloads on first use (it's currently installed as an indirect dependency — if it's ever missing, run `npm install puppeteer`). This is mainly meant so that the Historical Society doesn't have to print all of the articles by their own hand. |
 | `git status` / `git pull` / `git add …` / `git commit -m "…"` / `git push` | The GitHub saving dance (section 8). |
 | `./scripts/deploy_image.sh root@SERVER_IP` | Builds and publishes the new version to the server (section 8.4). |
 
@@ -469,7 +469,7 @@ Read the output. The most common failure is the build step (step 1 of the script
 3. **Credit photos** in `{credit=…}` or `heroImageCredit`. The amazing photographers deserve their credit!
 4. **Use the real publication date** in `pubDate` — it controls where the article sorts on the site, not just what's printed. I usually sync it to when the physical paper is distributed.
 5. **Don't commit things you can't share.** The whole repository is public. No passwords, no personal emails beyond the newspaper's, no draft opinions that weren't meant for the page.
-6. **Check the preview before you commit, and `bun run build` before you deploy.** Two quick habits that prevent almost all incidents.
+6. **Check the preview before you commit, and `npm run build` before you deploy.** Two quick habits that prevent almost all incidents.
 7. **Look at the site on a phone.** It's designed to work on small screens and adapt to larger screens. This isn't needed when doing day-to-day work, but any style changes it's needed!
 8. **Dark mode is automatic** — visitors see a dark or light version of the site based on their system setting. Nothing to maintain, but do a quick glance at both.
 9. **When in doubt, ask before touching** anything outside `src/content/`, `src/images/`, and `public/ads/`.
