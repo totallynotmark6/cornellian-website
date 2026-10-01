@@ -2,11 +2,11 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import tailwindcss from "@tailwindcss/vite";
-
+import { satteri } from "@astrojs/markdown-satteri";
+import imgAttr from "satteri-imgattr";
 import sitemap from '@astrojs/sitemap';
-
-import { remarkReadingTime } from './remark-reading-time.mjs';
-import { remarkImageCaptions } from './remark-image-captions.mjs';
+import { readingTimePlugin } from "./src/plugins/reading-time.ts";
+import satteriDescription from 'satteri-description';
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,10 +18,21 @@ export default defineConfig({
                 light: "catppuccin-latte",
             }
         },
-        remarkPlugins: [remarkReadingTime, remarkImageCaptions]
+        processor: satteri({
+            mdastPlugins: [
+                readingTimePlugin,
+                satteriDescription()
+            ],
+            hastPlugins: [
+                imgAttr({
+                    defaults: {
+                        loading: "lazy", decoding: "async"
+                    }
+                })
+            ]
+        })
     },
     vite: {
-    	// @ts-expect-error type mismatch between tailwindcss/vite and astro's vite
     	plugins: [tailwindcss()]
     },
     integrations: [mdx(), sitemap()],
