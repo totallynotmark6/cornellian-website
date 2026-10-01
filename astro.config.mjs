@@ -36,4 +36,7 @@ export default defineConfig({
     	plugins: [tailwindcss()]
     },
     integrations: [mdx(), sitemap()],
+    image: {
+        domains: ["placecats.com"]
+    }
 });
