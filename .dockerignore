@@ -1,0 +1,29 @@
+# Dependencies and build output are recreated inside the image.
+node_modules
+dist
+.astro
+
+# VCS and local tooling.
+.git
+.gitignore
+.github
+.claude
+.vscode
+.idea
+.playwright
+.playwright-cli
+
+# Logs and local environment.
+logs
+*.log
+.env
+.env.production
+.DS_Store
+
+# Docs and orchestration. Not needed to build; the Caddyfile is mounted at
+# runtime via docker-compose, so it must not be baked into the image.
+README.md
+DEPLOY.md
+MAINTAINING.md
+docker-compose.yml
+Caddyfile
