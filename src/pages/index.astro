@@ -61,19 +61,5 @@ const latest_post = posts[0];
 			<p>Our meetings are held every Wednesday (excluding the fourth week) at 7:00 p.m. in the MLK Room located within the Thomas Commons.</p>
 		</main>
 		<Footer />
-		<script>
-			function isAprilFools() {
-				var d = new Date();
-				return d.getMonth() === 3 && d.getDate() === 1;
-			}
-			function swapSubtitle() {
-				if (isAprilFools()) {
-					const subtitleEl = document.getElementById('subtitle');
-					if (subtitleEl) subtitleEl.textContent = 'Truth With Fear. Since the 1800s.';
-				}
-			}
-			swapSubtitle();
-			document.addEventListener('astro:page-load', swapSubtitle);
-		</script>
 	</body>
 </html>

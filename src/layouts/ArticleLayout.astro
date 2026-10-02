@@ -17,8 +17,7 @@ const isAprilFoolsArticle = d.getMonth() === 3 && d.getDate() === 1;
 
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} />
-		{isAprilFoolsArticle && <script is:inline>document.documentElement.classList.add('april-fools');</script>}
+		<BaseHead title={title} description={description} aprilFools={isAprilFoolsArticle} />
 	</head>
 
 	<body>
@@ -70,12 +69,3 @@ const isAprilFoolsArticle = d.getMonth() === 3 && d.getDate() === 1;
 		<Footer />
 	</body>
 </html>
-{isAprilFoolsArticle && <script is:inline>
-	document.addEventListener('astro:page-load', function() {
-		document.documentElement.classList.add('april-fools');
-		var titleEl = document.getElementById('header_title');
-		if (titleEl) titleEl.textContent = 'The Cornhellian';
-		var subtitleEl = document.getElementById('subtitle');
-		if (subtitleEl) subtitleEl.textContent = 'Truth With Fear. Since the 1800s.';
-	});
-</script>}

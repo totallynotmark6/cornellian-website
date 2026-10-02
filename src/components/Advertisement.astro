@@ -22,16 +22,13 @@ const randomAd = ads[Math.floor(Math.random() * ads.length)];
     </div>
 </div>
 <script is:inline>
-	function isAprilFools() {
-		var d = new Date();
-		return d.getMonth() === 3 && d.getDate() === 1;
+	// Toggles instead of only unhiding: the `april-fools` class is scoped to the
+	// current page, so the ad must hide again when leaving a themed page.
+	function syncAd() {
+		var el = document.getElementById('april-ad');
+		if (!el) return;
+		el.classList.toggle('hidden', !document.documentElement.classList.contains('april-fools'));
 	}
-	function showAd() {
-		if (isAprilFools() || document.documentElement.classList.contains('april-fools')) {
-			var el = document.getElementById('april-ad');
-			if (el) el.classList.remove('hidden');
-		}
-	}
-	showAd();
-	document.addEventListener('astro:page-load', showAd);
+	syncAd();
+	document.addEventListener('astro:page-load', syncAd);
 </script>

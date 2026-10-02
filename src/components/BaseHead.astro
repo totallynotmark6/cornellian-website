@@ -6,11 +6,12 @@ interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	aprilFools?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
+const { title, description, image = '/blog-placeholder-1.jpg', aprilFools } = Astro.props;
 ---
 
 <!-- Credits -->
@@ -20,6 +21,9 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<!-- Marks April 1 articles so the April Fools theme can be scoped per page. Head tags are
+	replaced on client-side navigation, unlike the <html> element, which persists. -->
+{aprilFools && <meta name="april-fools" content="true" />}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <meta name="generator" content={Astro.generator} />
 
@@ -49,13 +53,24 @@ const { title, description, image = '/blog-placeholder-1.jpg' } = Astro.props;
 <ClientRouter />
 
 <script is:inline>
-	function isAprilFools() {
+	// The Cornhellian theme is active when today is April 1, or when the current page
+	// is an April 1 article (marked with the `april-fools` meta tag). The <html>
+	// element and this script's listeners survive client-side navigations, so the
+	// class must be toggled on every page load instead of only added.
+	function isTodayAprilFools() {
 		var d = new Date();
 		return d.getMonth() === 3 && d.getDate() === 1;
 	}
-	function activateAprilFools() {
-		if (isAprilFools()) document.documentElement.classList.add('april-fools');
+	function applyAprilFools() {
+		var onAprilArticle = document.querySelector('meta[name="april-fools"]') !== null;
+		var active = isTodayAprilFools() || onAprilArticle;
+		document.documentElement.classList.toggle('april-fools', active);
+		if (!active) return;
+		var titleEl = document.getElementById('header_title');
+		if (titleEl) titleEl.textContent = 'The Cornhellian';
+		var subtitleEl = document.getElementById('subtitle');
+		if (subtitleEl) subtitleEl.textContent = 'Truth With Fear. Since the 1800s.';
 	}
-	activateAprilFools();
-	document.addEventListener('astro:page-load', activateAprilFools);
+	applyAprilFools();
+	document.addEventListener('astro:page-load', applyAprilFools);
 </script>
