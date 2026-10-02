@@ -6,6 +6,7 @@ import { satteri } from "@astrojs/markdown-satteri";
 import imgAttr from "satteri-imgattr";
 import sitemap from '@astrojs/sitemap';
 import { readingTimePlugin } from "./src/plugins/reading-time.ts";
+import { imageCaptionsPlugin } from "./src/plugins/image-captions.ts";
 import satteriDescription from 'satteri-description';
 
 // https://astro.build/config
@@ -24,6 +25,7 @@ export default defineConfig({
                 satteriDescription()
             ],
             hastPlugins: [
+                imageCaptionsPlugin,
                 imgAttr({
                     defaults: {
                         loading: "lazy", decoding: "async"
