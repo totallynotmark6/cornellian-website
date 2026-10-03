@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Build Image
+        run: docker build -t cornellian-website:latest .
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DO_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.DO_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Copy Compose & Caddyfile
+        run: |
+          scp docker-compose.yml Caddyfile \
+            ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }}:/opt/cornellian-website/
+      - name: Load Image
+        run: |
+          docker save cornellian-website:latest | gzip | \
+            ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }}: 'gunzip | docker load'
+      - name:
+        run: |
+          ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} \
+            'cd /opt/cornellian-website && docker compose up -d && docker image prune -f'
