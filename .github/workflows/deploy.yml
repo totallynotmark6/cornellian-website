@@ -24,7 +24,7 @@ jobs:
       - name: Load Image
         run: |
           docker save cornellian-website:latest | gzip | \
-            ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }}: 'gunzip | docker load'
+            ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} 'gunzip | docker load'
       - name:
         run: |
           ssh ${{ secrets.DO_USER }}@${{ secrets.DO_HOST }} \
