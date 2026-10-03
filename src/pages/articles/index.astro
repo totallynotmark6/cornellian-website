@@ -18,6 +18,7 @@ const posts = (await getCollection('articles')).sort(
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
+			@reference "../../styles/global.css"
 			ul li {
 				/* width: calc(50% - 1rem); */
 			}
@@ -27,13 +28,13 @@ const posts = (await getCollection('articles')).sort(
 				text-align: center;
 			} */
 			ul li:first-child img {
-				@reference w-full;
+				@apply w-full;
 			}
 			ul li:first-child h4 {
-				@reference md:text-4xl;
+				@apply md:text-4xl;
 			}
 			ul a:hover img {
-				@reference shadow-2xl;
+				@apply shadow-2xl;
 			}
 		</style>
 	</head>
