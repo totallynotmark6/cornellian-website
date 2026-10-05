@@ -337,6 +337,8 @@ git commit -m "Add spring picnic article"          # save them with a note
 
 A good commit note is a short sentence describing the change: `add comic: tiny stupid hands`, `fix date on yearbook article`, `add staff card for Clara`.
 
+If you're using Codespaces, there's a more visual way, look to the left where they'll have an icon like a tree branch, and, once you're in there, you'll be able to commit and push.
+
 ### 8.3 — Push to GitHub
 
 ```sh
@@ -347,31 +349,17 @@ Your work is now on GitHub and visible to the rest of the team.
 
 ### 8.4 — Deploy to the server
 
-The confirmed way to update the live site is the deploy script, which does all the server work for you:
+You'll want to go to Actions, then Deploy. You'll see a list of previous runs, and a button at top that says "Run workflow". Hit it, making sure to use the workflow from `Branch: main`. Then, wait around 5 minutes! You can click into the job if you want to see what step it's on, or, if it errors, any errors. It's that simple :)
 
-```sh
-./scripts/deploy_image.sh root@SERVER_IP
-```
-
-Replace `SERVER_IP` with the server's address (ask for it — it's an IP address or hostname). What it does, step by step:
-
-1. On *your* computer, builds the finished website into a Docker image (this is the same build the server runs, so if it fails here, it tells you exactly what's wrong).
-2. Copies the image and the two config files to the server.
-3. On the server, swaps the old website version for the new one and restarts it.
-
-The whole thing takes a few minutes. When it finishes, wait a moment and reload thecornellian.org to check your change is live.
-
-> **Note:** the README says the site "automatically updates" when you push to GitHub. There is currently no visible automated build set up in the repository, so treat the deploy script as the source of truth until someone confirms otherwise.
-
-Manual server instructions (only if the script is a no-go) are in `DEPLOY.md`.
-
-### 8.5 — Before you deploy: the two checks
+### 8.5 — Before you deploy
 
 ```sh
 npm run build
 ```
 
-This type-checks and builds the site exactly like the server does. If it fails, **do not deploy** — fix the error it describes (section 9 will help) and run it again until it passes.
+This type-checks and builds the site exactly like the server does. If it fails, **do not deploy** — fix the error it describes (section 9 will help) and run it again until it passes. (It shouldn't let you until you do, but this saves you the trouble.)
+
+Note that a build runs whenever you push (and on pull requests), look for a green checkmark next to your commit if it passes!
 
 ---
 

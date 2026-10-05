@@ -59,7 +59,7 @@ Staff page, April Fools' ads, PDF export, and the deploy pipeline are documented
 
 ## Publishing
 
-Commit and push to GitHub, then run `./scripts/deploy_image.sh root@SERVER_IP` to build the Docker image and update the server (manual server steps in `DEPLOY.md`). See [MAINTAINING.md §8](MAINTAINING.md#8-publishing-commit-push-deploy).
+Commit and push to GitHub, then run [the Deploy workflow](https://github.com/totallynotmark6/cornellian-website/actions/workflows/deploy.yml). See [MAINTAINING.md §8](MAINTAINING.md#8-publishing-commit-push-deploy).
 
 ## Folder Structure
 
